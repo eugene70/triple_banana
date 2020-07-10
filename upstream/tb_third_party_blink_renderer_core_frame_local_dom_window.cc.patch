@@ -1,0 +1,24 @@
+diff --git tb/third_party/blink/renderer/core/frame/local_dom_window.cc tb_diff/third_party/blink/renderer/core/frame/local_dom_window.cc
+--- tb/third_party/blink/renderer/core/frame/local_dom_window.cc
++++ tb_diff/third_party/blink/renderer/core/frame/local_dom_window.cc
+@@ -1833,6 +1833,20 @@ DOMWindow* LocalDOMWindow::open(v8::Isolate* isolate,
+                                 const AtomicString& target,
+                                 const String& features,
+                                 ExceptionState& exception_state) {
++#if defined(ENABLE_TRIPLE_BANANA)
++  // TODO(#336): Revisit the following logics
++  constexpr const char* kYoutube = "https://m.youtube.com";
++  constexpr const char* kYoutubeWatch = "https://m.youtube.com/watch?v=";
++
++  scoped_refptr<const SecurityOrigin> youtube_origin =
++      SecurityOrigin::Create(KURL(kYoutube));
++  if (document()->GetSecurityOrigin()->IsSameOriginWith(youtube_origin.get()) &&
++      url_string.Contains(kYoutubeWatch) && target.IsEmpty()) {
++    tab_->Open(url_string);
++    return nullptr;
++  }
++#endif
++
+   LocalDOMWindow* incumbent_window = IncumbentDOMWindow(isolate);
+   LocalDOMWindow* entered_window = EnteredDOMWindow(isolate);
+ 

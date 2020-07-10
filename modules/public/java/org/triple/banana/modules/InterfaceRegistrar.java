@@ -11,6 +11,8 @@ import org.triple.banana.authentication.AuthenticationManagerImpl;
 import org.triple.banana.authentication.mojom.AuthenticationManager;
 import org.triple.banana.encrypter.EncrypterManagerImpl;
 import org.triple.banana.encrypter.mojom.EncrypterManager;
+import org.triple.banana.ephemeral.EphemeralTabImpl;
+import org.triple.banana.ephemeral.mojom.EphemeralTab;
 import org.triple.banana.hello.HelloImpl;
 import org.triple.banana.hello.mojom.Hello;
 
@@ -32,6 +34,7 @@ class InterfaceRegistrar {
         registry.addInterface(
                 AuthenticationManager.MANAGER, new AuthenticationManagerImpl.Factory());
         registry.addInterface(EncrypterManager.MANAGER, new EncrypterManagerImpl.Factory());
+        registry.addInterface(EphemeralTab.MANAGER, new EphemeralTabImpl.Factory());
         registry.addInterface(Hello.MANAGER, new HelloImpl.Factory());
     }
 }

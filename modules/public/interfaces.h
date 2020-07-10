@@ -16,6 +16,8 @@
 #include "triple_banana/modules/public/mojom/adblock.mojom.h"
 #include "triple_banana/modules/public/mojom/authentication.mojom.h"
 #include "triple_banana/modules/public/mojom/encrypter.mojom.h"
+#include "triple_banana/modules/public/mojom/ephemeral.mojom-blink.h"
+#include "triple_banana/modules/public/mojom/ephemeral.mojom.h"
 #include "triple_banana/modules/public/mojom/hello.mojom.h"
 #include "triple_banana/modules/public/string_view.h"
 
@@ -85,6 +87,8 @@ inline void OnBindHostReceiverForRenderer(
   BIND_HOST_RECEIVER(adblock::mojom::FilterLoader);
   BIND_HOST_RECEIVER(authentication::mojom::AuthenticationManager);
   BIND_HOST_RECEIVER(encrypter::mojom::EncrypterManager);
+  BIND_HOST_RECEIVER(encrypter::mojom::EncrypterManager);
+  BIND_HOST_RECEIVER(ephemeral::mojom::EphemeralTab);
   BIND_HOST_RECEIVER(hello::mojom::Hello);
 }
 

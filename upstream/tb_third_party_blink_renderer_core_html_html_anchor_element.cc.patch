@@ -1,0 +1,25 @@
+diff --git tb/third_party/blink/renderer/core/html/html_anchor_element.cc tb_diff/third_party/blink/renderer/core/html/html_anchor_element.cc
+--- tb/third_party/blink/renderer/core/html/html_anchor_element.cc
++++ tb_diff/third_party/blink/renderer/core/html/html_anchor_element.cc
+@@ -298,6 +298,21 @@ KURL HTMLAnchorElement::Href() const {
+ 
+ void HTMLAnchorElement::SetHref(const AtomicString& value) {
+   setAttribute(html_names::kHrefAttr, value);
++
++#if defined(ENABLE_TRIPLE_BANANA)
++  if (FastHasAttribute(html_names::kTargetAttr))
++    return;
++
++  constexpr const char* kYoutube = "https://m.youtube.com";
++  constexpr const char* kYoutubeWatch = "/watch?v=";
++  scoped_refptr<const SecurityOrigin> youtube_origin =
++      SecurityOrigin::Create(KURL(kYoutube));
++  if (value.Contains(kYoutubeWatch) &&
++      GetDocument().GetSecurityOrigin()->IsSameOriginWith(
++          youtube_origin.get())) {
++    setAttribute(html_names::kTargetAttr, "_blank");
++  }
++#endif
+ }
+ 
+ KURL HTMLAnchorElement::Url() const {

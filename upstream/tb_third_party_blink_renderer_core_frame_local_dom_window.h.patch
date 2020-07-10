@@ -1,0 +1,26 @@
+diff --git tb/third_party/blink/renderer/core/frame/local_dom_window.h tb_diff/third_party/blink/renderer/core/frame/local_dom_window.h
+--- tb/third_party/blink/renderer/core/frame/local_dom_window.h
++++ tb_diff/third_party/blink/renderer/core/frame/local_dom_window.h
+@@ -42,6 +42,10 @@
+ 
+ #include <memory>
+ 
++#if defined(ENABLE_TRIPLE_BANANA)
++#include "triple_banana/modules/public/interfaces.h"
++#endif
++
+ namespace blink {
+ 
+ class ApplicationCache;
+@@ -451,6 +455,11 @@ class CORE_EXPORT LocalDOMWindow final : public DOMWindow,
+   Member<SpellChecker> spell_checker_;
+   Member<TextSuggestionController> text_suggestion_controller_;
+ 
++#if defined(ENABLE_TRIPLE_BANANA)
++  mojo::Remote<ephemeral::mojom::blink::EphemeralTab> tab_ =
++      AutoBind(ephemeral::mojom::blink::EphemeralTab);
++#endif
++
+   // Tracks which features have already been potentially violated in this
+   // document. This helps to count them only once per page load.
+   // We don't use std::bitset to avoid to include feature_policy.mojom-blink.h.

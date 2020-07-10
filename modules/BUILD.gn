@@ -12,12 +12,11 @@ mojom("mojom") {
     "public/mojom/adblock.mojom",
     "public/mojom/authentication.mojom",
     "public/mojom/encrypter.mojom",
+    "public/mojom/ephemeral.mojom",
     "public/mojom/hello.mojom",
   ]
 
-  public_deps = [
-    "//mojo/public/mojom/base",
-  ]
+  public_deps = [ "//mojo/public/mojom/base" ]
 
   export_class_attribute_blink = "BLINK_PLATFORM_EXPORT"
   export_define_blink = "BLINK_PLATFORM_IMPLEMENTATION=1"
@@ -42,8 +41,7 @@ source_set("native") {
 
 if (is_android) {
   generate_jni("jni_headers") {
-    sources = [
-      "public/java/org/triple/banana/modules/InterfaceRegistrar.java",
-    ]
+    sources =
+        [ "public/java/org/triple/banana/modules/InterfaceRegistrar.java" ]
   }
 }

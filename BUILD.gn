@@ -109,6 +109,9 @@ android_library("triple_banana_java") {
     "//triple_banana/src/org/triple/banana/encrypter/FakeEncrypter.java",
     "//triple_banana/src/org/triple/banana/encrypter/KeyStoreEncrypter.java",
 
+    # ephemeral
+    "//triple_banana/src/org/triple/banana/ephemeral/EphemeralTabImpl.java",
+
     # hello
     "//triple_banana/src/org/triple/banana/hello/HelloImpl.java",
 
