@@ -1,0 +1,11 @@
+diff --git tb/content/browser/BUILD.gn tb_diff/content/browser/BUILD.gn
+--- tb/content/browser/BUILD.gn
++++ tb_diff/content/browser/BUILD.gn
+@@ -2496,6 +2496,7 @@ jumbo_source_set("browser") {
+       "//media/capture/video/android",
+       "//third_party/blink/public/common:font_unique_name_table_proto",
+       "//third_party/icu",
++      "//triple_banana/modules:native",
+       "//ui/accessibility:ax_assistant",
+       "//ui/accessibility/mojom",
+       "//ui/android",

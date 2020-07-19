@@ -159,6 +159,9 @@ android_library("triple_banana_java") {
 
     # legacy modules
     "//triple_banana/modules/public/java/org/triple/banana/modules/InterfaceRegistrar.java",
+
+    # video
+    "//triple_banana/modules/video/java/org/triple/banana/modules/VideoManager.java",
   ]
   deps = [
     ":triple_banana_resources",
