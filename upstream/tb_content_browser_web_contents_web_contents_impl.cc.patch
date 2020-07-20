@@ -1,0 +1,56 @@
+diff --git tb/content/browser/web_contents/web_contents_impl.cc tb_diff/content/browser/web_contents/web_contents_impl.cc
+--- tb/content/browser/web_contents/web_contents_impl.cc
++++ tb_diff/content/browser/web_contents/web_contents_impl.cc
+@@ -186,6 +186,11 @@
+ #include "content/browser/media/session/pepper_playback_observer.h"
+ #endif
+ 
++#if defined(ENABLE_TRIPLE_BANANA)
++#include "content/common/media/media_player_delegate_messages.h"
++#include "triple_banana/modules/video/video_manager_android.h"
++#endif
++
+ namespace content {
+ 
+ using AccessibilityEventCallback =
+@@ -2501,6 +2506,11 @@ void WebContentsImpl::EnterFullscreenMode(
+ 
+   for (auto& observer : observers_)
+     observer.DidToggleFullscreenModeForTab(IsFullscreenForCurrentTab(), false);
++
++#if defined(ENABLE_TRIPLE_BANANA)
++  auto* hello = new triple_banana::VideoManagerAndroid();
++  hello->showVideo();
++#endif
+ }
+ 
+ void WebContentsImpl::ExitFullscreenMode(bool will_cause_resize) {
+@@ -7181,11 +7191,22 @@ void WebContentsImpl::MediaResized(const gfx::Size& size,
+ void WebContentsImpl::MediaEffectivelyFullscreenChanged(bool is_fullscreen) {
+   for (auto& observer : observers_)
+     observer.MediaEffectivelyFullscreenChanged(is_fullscreen);
++  LOG(INFO) << " HELLO MediaEffectivelyFullscreenChanged: ";
++#if defined(ENABLE_TRIPLE_BANANA)
++  if (is_fullscreen) {
++    base::Optional<MediaPlayerId> id =
++        media_web_contents_observer_->GetFullscreenVideoMediaPlayerId();
++    auto* hello = new triple_banana::VideoManagerAndroid();
++    hello->stop(&id.value());
++  }
++#endif
+ }
+ 
+ base::Optional<gfx::Size> WebContentsImpl::GetFullscreenVideoSize() {
++  LOG(INFO) << " HELLO GetFullscreenVideoSize : ";
+   base::Optional<MediaPlayerId> id =
+       media_web_contents_observer_->GetFullscreenVideoMediaPlayerId();
++
+   if (id && base::Contains(cached_video_sizes_, id.value()))
+     return base::Optional<gfx::Size>(cached_video_sizes_[id.value()]);
+   return base::nullopt;
+@@ -7446,5 +7467,4 @@ mojom::FrameInputHandler* WebContentsImpl::GetFocusedFrameInputHandler() {
+ ukm::SourceId WebContentsImpl::GetCurrentPageUkmSourceId() {
+   return GetMainFrame()->GetPageUkmSourceId();
+ }
+-
+ }  // namespace content

@@ -9,6 +9,8 @@
 #include <memory>
 #include "base/android/jni_android.h"
 #include "base/macros.h"
+#include "base/optional.h"
+#include "content/public/browser/media_player_id.h"
 
 namespace triple_banana {
 
@@ -17,6 +19,7 @@ class VideoManagerAndroid {
   explicit VideoManagerAndroid();
   virtual ~VideoManagerAndroid();
   void showVideo();
+  void stop(content::MediaPlayerId* fullscreen_player);
 
  private:
   base::android::ScopedJavaGlobalRef<jobject> jobject_;

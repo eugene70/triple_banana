@@ -33,6 +33,7 @@ source_set("native") {
   deps = [
     ":mojom",
     "//services/service_manager/public/cpp",
+    "//skia",
   ]
 
   if (is_android) {

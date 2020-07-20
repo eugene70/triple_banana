@@ -1,18 +1,7 @@
 diff --git tb/content/browser/frame_host/render_frame_host_impl.cc tb_diff/content/browser/frame_host/render_frame_host_impl.cc
 --- tb/content/browser/frame_host/render_frame_host_impl.cc
 +++ tb_diff/content/browser/frame_host/render_frame_host_impl.cc
-@@ -252,6 +252,10 @@
- #include "content/browser/frame_host/popup_menu_helper_mac.h"
- #endif
- 
-+#if defined(ENABLE_TRIPLE_BANANA)
-+#include "triple_banana/modules/video/video_manager_android.h"
-+#endif
-+
- using base::TimeDelta;
- 
- namespace content {
-@@ -1491,7 +1495,9 @@ void RenderFrameHostImpl::AddMessageToConsole(
+@@ -1491,7 +1491,9 @@ void RenderFrameHostImpl::AddMessageToConsole(
  void RenderFrameHostImpl::ExecuteJavaScript(const base::string16& javascript,
                                              JavaScriptResultCallback callback) {
    DCHECK_CURRENTLY_ON(BrowserThread::UI);
@@ -22,15 +11,3 @@ diff --git tb/content/browser/frame_host/render_frame_host_impl.cc tb_diff/conte
  
    const bool wants_result = !callback.is_null();
    GetNavigationControl()->JavaScriptExecuteRequest(javascript, wants_result,
-@@ -4169,6 +4175,11 @@ void RenderFrameHostImpl::EnterFullscreen(
-   // there are any OOPIF widgets, this will also trigger them to resize via
-   // frameRectsChanged.
-   render_view_host_->GetWidget()->SynchronizeVisualProperties();
-+
-+#if defined(ENABLE_TRIPLE_BANANA)
-+  auto* hello = new triple_banana::VideoManagerAndroid();
-+  hello->showVideo();
-+#endif
- }
- 
- // TODO(alexmos): When the allowFullscreen flag is known in the browser
