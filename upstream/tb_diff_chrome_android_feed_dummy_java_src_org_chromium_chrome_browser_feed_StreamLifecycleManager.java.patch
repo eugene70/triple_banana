@@ -1,0 +1,15 @@
+--- /dev/null
++++ tb_diff/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/StreamLifecycleManager.java
+@@ -0,0 +1,9 @@
++// Copyright 2018 The Chromium Authors. All rights reserved.
++// Use of this source code is governed by a BSD-style license that can be
++// found in the LICENSE file.
++
++package org.chromium.chrome.browser.feed;
++
++public class StreamLifecycleManager {
++    
++}
+\ No newline at end of file
+diff --git tb/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/action/FeedActionHandler.java tb_diff/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/action/FeedActionHandler.java
+new file mode 100644

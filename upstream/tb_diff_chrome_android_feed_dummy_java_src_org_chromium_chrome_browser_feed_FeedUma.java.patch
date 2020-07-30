@@ -1,0 +1,22 @@
+--- /dev/null
++++ tb_diff/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/FeedUma.java
+@@ -0,0 +1,16 @@
++package org.chromium.chrome.browser.feed;
++
++public class FeedUma {
++    // Possible actions taken by the user to control the feed. These values are also defined in
++    // enums.xml as FeedControlsActions.
++    // WARNING: these values must stay in sync with enums.xml.
++    public static final int CONTROLS_ACTION_CLICKED_MY_ACTIVITY = 0;
++    public static final int CONTROLS_ACTION_CLICKED_MANAGE_INTERESTS = 1;
++    public static final int CONTROLS_ACTION_CLICKED_LEARN_MORE = 2;
++    public static final int CONTROLS_ACTION_TOGGLED_FEED = 3;
++    public static final int CONTROLS_ACTION_CLICKED_FEED_HEADER_MENU = 4;
++    public static final int NUM_CONTROLS_ACTIONS = 5;
++
++    public static void recordFeedControlsAction(int action) {
++    }    
++}
+\ No newline at end of file
+diff --git tb/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/NtpStreamLifecycleManager.java tb_diff/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/NtpStreamLifecycleManager.java
+new file mode 100644

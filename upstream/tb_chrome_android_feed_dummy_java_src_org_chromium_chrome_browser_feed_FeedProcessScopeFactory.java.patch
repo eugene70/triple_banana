@@ -1,0 +1,18 @@
+diff --git tb/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/FeedProcessScopeFactory.java tb_diff/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/FeedProcessScopeFactory.java
+--- tb/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/FeedProcessScopeFactory.java
++++ tb_diff/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/FeedProcessScopeFactory.java
+@@ -18,4 +18,14 @@ public class FeedProcessScopeFactory {
+     }
+ 
+     static public void setTestNetworkClient(TestNetworkClient client) {}
++
++
++
++    public static Runnable getFeedConsumptionObserver() {
++        return null;
++    }
++
++    public static Object getFeedLoggingBridge() {
++        return null;
++    }
+ }

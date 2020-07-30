@@ -1,0 +1,18 @@
+--- /dev/null
++++ tb_diff/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/NtpStreamLifecycleManager.java
+@@ -0,0 +1,12 @@
++package org.chromium.chrome.browser.feed;
++
++import android.app.Activity;
++
++import org.chromium.chrome.browser.feed.library.api.client.stream.Stream;
++import org.chromium.chrome.browser.tab.Tab;
++
++public class NtpStreamLifecycleManager extends StreamLifecycleManager {
++
++    public NtpStreamLifecycleManager(Stream stream, Activity activity, Tab tab) {
++    }    
++}
+\ No newline at end of file
+diff --git tb/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/StreamLifecycleManager.java tb_diff/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/StreamLifecycleManager.java
+new file mode 100644

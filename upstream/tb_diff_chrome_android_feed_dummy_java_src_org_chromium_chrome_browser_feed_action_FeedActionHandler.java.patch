@@ -1,0 +1,19 @@
+--- /dev/null
++++ tb_diff/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/action/FeedActionHandler.java
+@@ -0,0 +1,13 @@
++package org.chromium.chrome.browser.feed.action;
++
++import org.chromium.chrome.browser.feed.library.api.host.action.ActionApi;
++
++public class FeedActionHandler implements ActionApi {
++    public FeedActionHandler(Object delegate,
++            Object suggestionConsumedObserver,
++            Object loggingBridge,
++            Object activity,
++            Object profile) {
++    }
++    
++}
+\ No newline at end of file
+diff --git tb/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/library/api/host/action/ActionApi.java tb_diff/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/library/api/host/action/ActionApi.java
+new file mode 100644

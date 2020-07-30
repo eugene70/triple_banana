@@ -1,0 +1,12 @@
+--- /dev/null
++++ tb_diff/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/v2/FeedStreamSurface.java
+@@ -0,0 +1,8 @@
++package org.chromium.chrome.browser.feed.v2;
++
++public class FeedStreamSurface {
++
++    public static void xSurfaceProcessScope() {
++
++    }
++}
+\ No newline at end of file

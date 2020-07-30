@@ -1,0 +1,11 @@
+--- /dev/null
++++ tb_diff/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/library/api/host/action/ActionApi.java
+@@ -0,0 +1,5 @@
++package org.chromium.chrome.browser.feed.library.api.host.action;
++
++public interface ActionApi {
++    
++}
+\ No newline at end of file
+diff --git tb/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/v2/FeedStreamSurface.java tb_diff/chrome/android/feed/dummy/java/src/org/chromium/chrome/browser/feed/v2/FeedStreamSurface.java
+new file mode 100644
