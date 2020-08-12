@@ -7,10 +7,15 @@ package org.triple.banana.toolbar;
 
 import android.view.View;
 
+import org.banana.cake.interfaces.BananaTab;
+import org.banana.cake.interfaces.BananaTabManager;
 import org.banana.cake.interfaces.BananaToolbarManager;
 import org.triple.banana.R;
 import org.triple.banana.settings.ExtensionFeatures;
 import org.triple.banana.theme.DarkModeController;
+
+import org.chromium.chrome.browser.ChromeActivity;
+import org.chromium.chrome.browser.media.PictureInPictureController;
 
 import java.util.EnumMap;
 
@@ -45,8 +50,14 @@ public enum ButtonId {
         sOnClickListeners.put(ButtonId.SHARE, v -> BananaToolbarManager.get().share());
         sOnClickListeners.put(ButtonId.SEARCH, v -> BananaToolbarManager.get().search());
         sOnClickListeners.put(ButtonId.NEW_TAB, v -> BananaToolbarManager.get().addNewTab());
-        sOnClickListeners.put(ButtonId.BANANA_EXTENSION,
-                v -> BananaToolbarManager.get().openSettingPage(ExtensionFeatures.class));
+        sOnClickListeners.put(ButtonId.BANANA_EXTENSION, (v) -> {
+            BananaTab tab = org.banana.cake.interfaces.BananaTabManager.get().getActivityTab();
+            if (tab == null || tab.getContext() == null) return;
+            ChromeActivity activity = (ChromeActivity) tab.getContext();
+            PictureInPictureController mPictureInPictureController =
+                    new PictureInPictureController();
+            mPictureInPictureController.attemptPictureInPicture(activity);
+        });
         sOnClickListeners.put(ButtonId.BOOKMARK, v -> BananaToolbarManager.get().goBookmark());
         sOnClickListeners.put(
                 ButtonId.ADD_SECRET_TAB, v -> BananaToolbarManager.get().addSecretTab());

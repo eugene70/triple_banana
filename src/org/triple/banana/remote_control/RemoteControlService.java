@@ -14,6 +14,9 @@ import org.triple.banana.R;
 import org.triple.banana.media.MediaController;
 import org.triple.banana.media.MediaEventListener;
 
+import org.chromium.chrome.browser.ChromeActivity;
+import org.chromium.chrome.browser.media.PictureInPictureController;
+
 public enum RemoteControlService implements RemoteControlView.Delegate {
     instance;
 
@@ -22,6 +25,8 @@ public enum RemoteControlService implements RemoteControlView.Delegate {
     private boolean mWasPipMode;
 
     private MediaController mMediaController = MediaController.instance;
+
+    private PictureInPictureController mPictureInPictureController;
 
     public void start() {
         mViewModel.addListener(mView);
@@ -81,9 +86,19 @@ public enum RemoteControlService implements RemoteControlView.Delegate {
             toggleOrientation();
         } else if (id == R.id.lock_button) {
             // NOTIMPLEMENTED
+            enterPipMode();
         } else if (id == R.id.seek_bar) {
             // NOTIMPLEMENTED
         }
+    }
+    private void enterPipMode() {
+        BananaTab tab = org.banana.cake.interfaces.BananaTabManager.get().getActivityTab();
+        if (tab == null || tab.getContext() == null) return;
+        ChromeActivity activity = (ChromeActivity) tab.getContext();
+        if (mPictureInPictureController == null) {
+            mPictureInPictureController = new PictureInPictureController();
+        }
+        mPictureInPictureController.attemptPictureInPicture(activity);
     }
 
     private void toggleOrientation() {
