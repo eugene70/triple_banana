@@ -108,12 +108,9 @@ class RemoteControlViewImpl implements RemoteControlView, RemoteControlViewModel
     private void updateTimeInfo(double currentTime, double duration) {
         if (mDialog == null || mTimeSeekBar == null) return;
 
-        TextView currentTimeView = mMainView.findViewById(R.id.current_time);
-        TextView durationView = mMainView.findViewById(R.id.duration);
-        if (currentTimeView == null || durationView == null) return;
-
-        currentTimeView.setText(getTimeLabelFrom((long) currentTime));
-        durationView.setText(getTimeLabelFrom((long) duration));
+        TextView timeTextView = mMainView.findViewById(R.id.time_text);
+        if (timeTextView == null) return;
+        timeTextView.setText(String.format("%s | %s", getTimeLabelFrom((long) currentTime), getTimeLabelFrom((long) duration)));
         mTimeSeekBar.setMax((int) duration);
         mTimeSeekBar.setProgress((int) currentTime);
     }
@@ -121,11 +118,11 @@ class RemoteControlViewImpl implements RemoteControlView, RemoteControlViewModel
     private void updateVolumeUI(boolean visibility, float value) {
         if (mDialog == null) return;
 
-        ViewGroup volumeLayout = mMainView.findViewById(R.id.volume_layout);
-        if (volumeLayout == null) return;
-        volumeLayout.setVisibility(visibility == true ? View.VISIBLE : View.INVISIBLE);
+        ViewGroup volumeContainer = mMainView.findViewById(R.id.volume_container);
+        if (volumeContainer == null) return;
+        volumeContainer.setVisibility(visibility == true ? View.VISIBLE : View.INVISIBLE);
 
-        SeekBar volumeSeekBar = volumeLayout.findViewById(R.id.volume_seek_bar);
+        SeekBar volumeSeekBar = volumeContainer.findViewById(R.id.volume_seekbar);
         if (volumeSeekBar == null) return;
         volumeSeekBar.setProgress((int) (value * 100.0f));
     }
@@ -134,11 +131,11 @@ class RemoteControlViewImpl implements RemoteControlView, RemoteControlViewModel
         if (mDialog == null) return;
         BrightnessUtil.setWindowBrightness(mDialog.getWindow(), value);
 
-        ViewGroup brightnessLayout = mMainView.findViewById(R.id.brightness_layout);
-        if (brightnessLayout == null) return;
-        brightnessLayout.setVisibility(visibility == true ? View.VISIBLE : View.INVISIBLE);
+        ViewGroup brightnessContainer = mMainView.findViewById(R.id.brightness_container);
+        if (brightnessContainer == null) return;
+        brightnessContainer.setVisibility(visibility == true ? View.VISIBLE : View.INVISIBLE);
 
-        SeekBar brightnessSeekBar = brightnessLayout.findViewById(R.id.brightness_seek_bar);
+        SeekBar brightnessSeekBar = brightnessContainer.findViewById(R.id.brightness_seekbar);
         if (brightnessSeekBar == null) return;
         brightnessSeekBar.setProgress((int) (value * 100.0f));
     }
@@ -160,9 +157,9 @@ class RemoteControlViewImpl implements RemoteControlView, RemoteControlViewModel
     private void showControls(boolean controlsVisibility, boolean isLocked, boolean isMuted) {
         if (mMainView == null) return;
 
-        final ViewGroup controls = mMainView.findViewById(R.id.control);
+        final ViewGroup controls = mMainView.findViewById(R.id.controls);
         final ImageButton lockButton = mMainView.findViewById(R.id.lock_button);
-        final ImageButton muteButton = mMainView.findViewById(R.id.mute_button);
+        final ImageButton muteButton = controls.findViewById(R.id.mute_button);
         if (controls == null || lockButton == null || muteButton == null) return;
 
         controls.setVisibility(controlsVisibility && !isLocked ? View.VISIBLE : View.INVISIBLE);
@@ -172,25 +169,24 @@ class RemoteControlViewImpl implements RemoteControlView, RemoteControlViewModel
     }
 
     private void setPlayState(MediaPlayState state) {
-        final ViewGroup middleControl = mMainView.findViewById(R.id.middle_control);
         final ImageButton playButton = mMainView.findViewById(R.id.play_button);
-        final ProgressBar waitingProgressBar = mMainView.findViewById(R.id.waiting_progress_bar);
+        final ProgressBar waitingProgress = mMainView.findViewById(R.id.waiting_progress);
 
-        if (middleControl == null || playButton == null || waitingProgressBar == null) return;
+        if (playButton == null || waitingProgress == null) return;
         switch (state) {
             case PLAYING:
-                middleControl.setVisibility(View.VISIBLE);
-                waitingProgressBar.setVisibility(View.INVISIBLE);
+                waitingProgress.setVisibility(View.INVISIBLE);
+                playButton.setVisibility(View.VISIBLE);
                 playButton.setImageResource(R.drawable.ic_pause);
                 break;
             case PAUSED:
-                middleControl.setVisibility(View.VISIBLE);
-                waitingProgressBar.setVisibility(View.INVISIBLE);
+                waitingProgress.setVisibility(View.INVISIBLE);
+                playButton.setVisibility(View.VISIBLE);
                 playButton.setImageResource(R.drawable.ic_play);
                 break;
             case WAITING:
-                middleControl.setVisibility(View.INVISIBLE);
-                waitingProgressBar.setVisibility(View.VISIBLE);
+                waitingProgress.setVisibility(View.VISIBLE);
+                playButton.setVisibility(View.INVISIBLE);
                 break;
         }
     }
@@ -209,9 +205,9 @@ class RemoteControlViewImpl implements RemoteControlView, RemoteControlViewModel
         mDialog.create();
         mDialog.setContentView(R.layout.remote_control_view);
 
-        mMainView = mDialog.findViewById(R.id.remote_control_view);
+        mMainView = mDialog.findViewById(R.id.remote_control_container);
         mMainView.addListener(mDelegate.get());
-        mTimeSeekBar = mDialog.findViewById(R.id.time_seek_bar);
+        mTimeSeekBar = mDialog.findViewById(R.id.time_seekbar);
         mTimeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             private int mPreviousProgress;
 

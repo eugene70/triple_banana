@@ -183,6 +183,7 @@ android_library("triple_banana_java") {
   ]
   deps = [
     ":androidx_biometric_java",
+    ":androidx_constraint_layout_java",
     ":triple_banana_resources",
     "//base:base_java",
     "//chrome/android:chrome_java",
@@ -383,5 +384,12 @@ android_aar_prebuilt("androidx_biometric_java") {
   aar_path = "android_deps/libs/androidx_biometric/androidx_biometric-1.0.1.aar"
   info_path =
       "android_deps/libs/androidx_biometric/androidx_biometric-1.0.1.info"
+  deps = [ "//third_party/android_deps:android_support_v7_appcompat_java" ]
+}
+
+android_aar_prebuilt("androidx_constraint_layout_java") {
+  aar_path = "android_deps/libs/androidx_constraint_layout/androidx_constraint_layout-1.1.3.aar"
+  info_path =
+      "android_deps/libs/androidx_constraint_layout/androidx_constraint_layout-1.1.3.info"
   deps = [ "//third_party/android_deps:android_support_v7_appcompat_java" ]
 }
