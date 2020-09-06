@@ -68,6 +68,7 @@ public class ApplicationStatusTracker {
     }
 
     public void start() {
+        mCurrentStatus = ApplicationStatus.FOREGROUND;
         BananaApplicationUtils.get().registerApplicationStateListener(mApplicationStateListener);
         BananaApplicationUtils.get().registerStateListenerForAllActivities(mActivityStateListener);
     }
