@@ -26,12 +26,14 @@ public class BiometricPromptActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // FIXME(#711): Consider a new way to change the biometric prompt builder description
+        Boolean isBackground = getRequestData();
         final PromptInfo promptInfo =
                 new PromptInfo.Builder()
                         .setTitle(getResources().getString(R.string.authentication_title))
-                        .setDescription(
-                                getResources().getString(R.string.authentication_description))
+                        .setDescription(getResources().getString(isBackground
+                                        ? R.string.browser_lock_description
+                                        : R.string.authentication_description))
                         .setNegativeButtonText(getResources().getText(android.R.string.cancel))
                         .build();
         final BiometricPrompt prompt = new BiometricPrompt(
